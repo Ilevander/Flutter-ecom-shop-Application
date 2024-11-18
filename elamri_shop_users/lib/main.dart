@@ -1,3 +1,4 @@
+import 'package:elamri_shop_users/root_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:elamri_shop_users/providers/theme_provider.dart';
@@ -23,10 +24,10 @@ class MyApp extends StatelessWidget {
       ],
       child: Consumer<ThemeProvider>(builder: (context, themeProvider, child) {
         return MaterialApp(
-          title: 'ShopSmart EN',
+          title: 'Elamri-Shop MA',
           theme: Styles.themeData(
               isDarkTheme: themeProvider.getIsDarkTheme, context: context),
-          home: const HomeScreen(),
+          home: const RootScreen(),
         );
       }),
     );
