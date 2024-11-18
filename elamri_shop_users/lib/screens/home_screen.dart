@@ -1,3 +1,5 @@
+import 'package:elamri_shop_users/widgets/subtitle_screen.dart';
+import 'package:elamri_shop_users/widgets/title_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
@@ -14,12 +16,11 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              "Hello world",
-              style: TextStyle(
-                fontSize: 50,
-                fontWeight: FontWeight.bold,
-              ),
+            const SubtitleTextWidget(
+              label: "Hello world!!!!!",
+            ),
+            TitlesTextWidget(
+              label: "Hello this is a title" * 10,
             ),
             ElevatedButton(onPressed: () {}, child: const Text("Hello world")),
             SwitchListTile(
