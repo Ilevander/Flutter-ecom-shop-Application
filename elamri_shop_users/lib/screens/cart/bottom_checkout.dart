@@ -33,7 +33,7 @@ class CartBottomSheetWidget extends StatelessWidget {
                             label: "Total (6 products/9 items)")),
                     SubtitleTextWidget(
                       label: "16.0 \MAD",
-                      color: Color.fromARGB(255, 54, 55, 56),
+                      color: Colors.blue,
                     ),
                   ],
                 ),

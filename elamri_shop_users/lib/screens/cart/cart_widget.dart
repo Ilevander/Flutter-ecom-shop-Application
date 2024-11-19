@@ -1,3 +1,4 @@
+import 'package:elamri_shop_users/consts/app_constants.dart';
 import 'package:elamri_shop_users/screens/cart/quantity_btm_sheet.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +24,7 @@ class CartWidget extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(12.0),
                 child: FancyShimmerImage(
-                  imageUrl:
-                      'https://i.ibb.co/8r1Ny2n/20-Nike-Air-Force-1-07.png',
+                  imageUrl: AppConstants.imageUrl,
                   height: size.height * 0.2,
                   width: size.height * 0.2,
                 ),
@@ -67,7 +67,7 @@ class CartWidget extends StatelessWidget {
                       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const SubtitleTextWidget(
-                          label: "16.00\$",
+                          label: "16.00 \MAD",
                           color: Colors.blue,
                         ),
                         const Spacer(),
