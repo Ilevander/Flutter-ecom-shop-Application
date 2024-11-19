@@ -1,4 +1,4 @@
-import 'package:elamri_shop_users/screens/cart_screen.dart';
+import 'package:elamri_shop_users/screens/cart/cart_screen.dart';
 import 'package:elamri_shop_users/screens/profile_screen.dart';
 import 'package:elamri_shop_users/screens/search_screen.dart';
 import 'package:flutter/material.dart';
