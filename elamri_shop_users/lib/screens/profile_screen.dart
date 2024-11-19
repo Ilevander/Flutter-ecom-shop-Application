@@ -1,3 +1,4 @@
+import 'package:elamri_shop_users/widgets/app_name_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -22,7 +23,7 @@ class ProfileScreen extends StatelessWidget {
             AssetsManager.shoppingCart,
           ),
         ),
-        title: const Text("Profile screen"),
+        title: const AppNameTextWidget(fontSize: 20,),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
