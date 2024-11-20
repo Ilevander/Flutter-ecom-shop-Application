@@ -1,5 +1,6 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:elamri_shop_users/consts/app_constants.dart';
+import 'package:elamri_shop_users/widgets/products/ctg_rounded_widget.dart';
 import 'package:elamri_shop_users/widgets/products/latest_arrival.dart';
 import 'package:elamri_shop_users/widgets/subtitle_screen.dart';
 import 'package:elamri_shop_users/widgets/title_text.dart';
@@ -57,22 +58,22 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 15.0,
-            ),
-           // const TitlesTextWidget(label: "Latest arrival"),
-            const SizedBox(
-              height: 15.0,
-            ),
-            SizedBox(
-              height: size.height * 0.2,
-              child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    //return LatestArrivalProductsWidget();
-                  }),
-            ),
+            //   const SizedBox(
+            //     height: 15.0,
+            //   ),
+            //  // const TitlesTextWidget(label: "Latest arrival"),
+            //   const SizedBox(
+            //     height: 15.0,
+            //   ),
+            //   SizedBox(
+            //     height: size.height * 0.2,
+            //     child: ListView.builder(
+            //         scrollDirection: Axis.horizontal,
+            //         itemCount: 10,
+            //         itemBuilder: (context, index) {
+            //           //return LatestArrivalProductsWidget();
+            //         }),
+            //   ),
             const SizedBox(
               height: 15.0,
             ),
@@ -88,7 +89,26 @@ class HomeScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return LatestArrivalProductsWidget();
                   }),
-            )
+            ),
+            // const SizedBox(
+            //   height: 15.0,
+            // ),
+            const TitlesTextWidget(label: "Categories"),
+            const SizedBox(
+              height: 15.0,
+            ),
+            GridView.count(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                crossAxisCount: 4,
+                children:
+                    List.generate(AppConstants.categoriesList.length, (index) {
+                  return CategoryRoundedWidget(
+                    image: AppConstants.categoriesList[index].image,
+                    name: AppConstants.categoriesList[index].name,
+                  );
+                }),
+              ),
           ],
         ),
       ),
