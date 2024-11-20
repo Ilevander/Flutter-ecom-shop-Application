@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:elamri_shop_users/screens/inner_screen/product_details.dart';
 import 'package:elamri_shop_users/widgets/subtitle_screen.dart';
 import 'package:elamri_shop_users/widgets/title_text.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
@@ -24,9 +25,9 @@ class _ProductWidgetState extends State<ProductWidget> {
     return Padding(
       padding: const EdgeInsets.all(0.0),
       child: GestureDetector(
-        onTap: () {
-          log("ToDo add the navigate to the product details screen");
-        },
+        onTap: () async {
+          await Navigator.pushNamed(context, ProductDetailsScreen.routName);
+        },  
         child: Column(
           children: [
             ClipRRect(
