@@ -1,5 +1,6 @@
 import 'package:elamri_shop_users/screens/inner_screen/viewed_recently.dart';
 import 'package:elamri_shop_users/screens/inner_screen/wishlist.dart';
+import 'package:elamri_shop_users/services/my_app_functions.dart';
 import 'package:elamri_shop_users/widgets/app_name_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -157,9 +158,15 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              onPressed: () {},
               icon: const Icon(Icons.login),
               label: const Text("Login"),
+              onPressed: () async {
+                  await MyAppFunctions.showErrorOrWarningDialog(
+                      context: context,
+                      subtitle: "Are you sure you want to signout",
+                      fct: () {},
+                      isError: false);
+                },
             ),
           ),
         ],
