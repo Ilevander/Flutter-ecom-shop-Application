@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:elamri_shop_users/widgets/products/heart_btn.dart';
 import 'package:elamri_shop_users/widgets/subtitle_screen.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
@@ -54,12 +55,7 @@ class LatestArrivalProductsWidget extends StatelessWidget {
                     FittedBox(
                       child: Row(
                         children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              IconlyLight.heart,
-                            ),
-                          ),
+                          const HeartButtonWidget(),
                           IconButton(
                             onPressed: () {},
                             icon: const Icon(

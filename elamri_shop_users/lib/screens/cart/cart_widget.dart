@@ -1,5 +1,6 @@
 import 'package:elamri_shop_users/consts/app_constants.dart';
 import 'package:elamri_shop_users/screens/cart/quantity_btm_sheet.dart';
+import 'package:elamri_shop_users/widgets/products/heart_btn.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -53,12 +54,7 @@ class CartWidget extends StatelessWidget {
                                 color: Colors.red,
                               ),
                             ),
-                            IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                IconlyLight.heart,
-                              ),
-                            ),
+                            const HeartButtonWidget(),
                           ],
                         ),
                       ],

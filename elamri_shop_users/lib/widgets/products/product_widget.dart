@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:elamri_shop_users/screens/inner_screen/product_details.dart';
+import 'package:elamri_shop_users/widgets/products/heart_btn.dart';
 import 'package:elamri_shop_users/widgets/subtitle_screen.dart';
 import 'package:elamri_shop_users/widgets/title_text.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
@@ -55,10 +56,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                   ),
                   Flexible(
                     flex: 2,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(IconlyLight.heart),
-                    ),
+                    child: HeartButtonWidget(),
                   ),
                 ],
               ),
