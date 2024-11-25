@@ -1,52 +1,63 @@
 import 'package:elamri_shop_users/consts/validator.dart';
 import 'package:elamri_shop_users/widgets/app_name_text.dart';
-import 'package:elamri_shop_users/widgets/auth/google_btn.dart';
-import 'package:elamri_shop_users/screens/auth/register.dart';
 import 'package:elamri_shop_users/widgets/subtitle_screen.dart';
 import 'package:elamri_shop_users/widgets/title_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+ 
 
-
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  static const routName = "/RegisterScreen";
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   bool obscureText = true;
-  late final TextEditingController _emailController;
-  late final TextEditingController _passwordController;
+  late final TextEditingController _nameController,
+      _emailController,
+      _passwordController,
+      _repeatPasswordController;
 
-  late final FocusNode _emailFocusNode;
-  late final FocusNode _passwordFocusNode;
+  late final FocusNode _nameFocusNode,
+      _emailFocusNode,
+      _passwordFocusNode,
+      _repeatPasswordFocusNode;
 
   final _formkey = GlobalKey<FormState>();
   @override
   void initState() {
+    _nameController = TextEditingController();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
+    _repeatPasswordController = TextEditingController();
     // Focus Nodes
+    _nameFocusNode = FocusNode();
     _emailFocusNode = FocusNode();
     _passwordFocusNode = FocusNode();
+    _repeatPasswordFocusNode = FocusNode();
     super.initState();
   }
 
   @override
   void dispose() {
     if (mounted) {
+      _nameController.dispose();
       _emailController.dispose();
       _passwordController.dispose();
+      _repeatPasswordController.dispose();
       // Focus Nodes
+      _nameFocusNode.dispose();
       _emailFocusNode.dispose();
       _passwordFocusNode.dispose();
+      _repeatPasswordFocusNode.dispose();
     }
     super.dispose();
   }
 
-  Future<void> _loginFct() async {
+  Future<void> _registerFCT() async {
     final isValid = _formkey.currentState!.validate();
     FocusScope.of(context).unfocus();
   }
@@ -63,6 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                // const BackButton(),
                 const SizedBox(
                   height: 60,
                 ),
@@ -70,19 +82,46 @@ class _LoginScreenState extends State<LoginScreen> {
                   fontSize: 30,
                 ),
                 const SizedBox(
-                  height: 16,
+                  height: 30,
                 ),
                 const Align(
                     alignment: Alignment.centerLeft,
-                    child: TitlesTextWidget(label: "Welcome back!")),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TitlesTextWidget(label: "Welcome back!"),
+                        SubtitleTextWidget(label: "Your welcome message"),
+                      ],
+                    )),
                 const SizedBox(
-                  height: 16,
+                  height: 30,
                 ),
                 Form(
                   key: _formkey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      TextFormField(
+                        controller: _nameController,
+                        focusNode: _nameFocusNode,
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.name,
+                        decoration: const InputDecoration(
+                          hintText: 'Full Name',
+                          prefixIcon: Icon(
+                            Icons.person,
+                          ),
+                        ),
+                        onFieldSubmitted: (value) {
+                          FocusScope.of(context).requestFocus(_emailFocusNode);
+                        },
+                        validator: (value) {
+                          return MyValidators.displayNamevalidator(value);
+                        },
+                      ),
+                      const SizedBox(
+                        height: 16.0,
+                      ),
                       TextFormField(
                         controller: _emailController,
                         focusNode: _emailFocusNode,
@@ -106,12 +145,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 16.0,
                       ),
                       TextFormField(
-                        obscureText: obscureText,
                         controller: _passwordController,
                         focusNode: _passwordFocusNode,
-                        textInputAction: TextInputAction.done,
+                        textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.visiblePassword,
+                        obscureText: obscureText,
                         decoration: InputDecoration(
+                          hintText: "***********",
+                          prefixIcon: const Icon(
+                            IconlyLight.lock,
+                          ),
                           suffixIcon: IconButton(
                             onPressed: () {
                               setState(() {
@@ -124,14 +167,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   : Icons.visibility_off,
                             ),
                           ),
-                          hintText: "***********",
-                          prefixIcon: const Icon(
-                            IconlyLight.lock,
-                          ),
-                          
                         ),
                         onFieldSubmitted: (value) async {
-                          await _loginFct();
+                          FocusScope.of(context)
+                              .requestFocus(_repeatPasswordFocusNode);
                         },
                         validator: (value) {
                           return MyValidators.passwordValidator(value);
@@ -140,19 +179,42 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(
                         height: 16.0,
                       ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
-                          onPressed: () {},
-                          child: const SubtitleTextWidget(
-                            label: "Forgot password?",
-                            fontStyle: FontStyle.italic,
-                            textDecoration: TextDecoration.underline,
+                      TextFormField(
+                        controller: _repeatPasswordController,
+                        focusNode: _repeatPasswordFocusNode,
+                        textInputAction: TextInputAction.done,
+                        keyboardType: TextInputType.visiblePassword,
+                        obscureText: obscureText,
+                        decoration: InputDecoration(
+                          hintText: "Repeat password",
+                          prefixIcon: const Icon(
+                            IconlyLight.lock,
+                          ),
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                obscureText = !obscureText;
+                              });
+                            },
+                            icon: Icon(
+                              obscureText
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
                           ),
                         ),
+                        onFieldSubmitted: (value) async {
+                          await _registerFCT();
+                        },
+                        validator: (value) {
+                          return MyValidators.repeatPasswordValidator(
+                            value: value,
+                            password: _passwordController.text,
+                          );
+                        },
                       ),
                       const SizedBox(
-                        height: 16.0,
+                        height: 36.0,
                       ),
                       SizedBox(
                         width: double.infinity,
@@ -166,72 +228,13 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                           ),
-                          icon: const Icon(Icons.login),
-                          label: const Text("Login"),
+                          icon: const Icon(IconlyLight.addUser),
+                          label: const Text("Sign up"),
                           onPressed: () async {
-                            await _loginFct();
+                            await _registerFCT();
                           },
                         ),
                       ),
-                      const SizedBox(
-                        height: 16.0,
-                      ), SizedBox(
-                        height: kBottomNavigationBarHeight + 10,
-                        child: Row(
-                          children: [
-                            const Expanded(
-                              flex: 2,
-                              child: SizedBox(
-                                height: kBottomNavigationBarHeight,
-                                child: FittedBox(
-                                  child: GoogleButton(),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                          Expanded(
-                                  child: SizedBox(
-                                    height: kBottomNavigationBarHeight,
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        padding: const EdgeInsets.all(12.0),
-                                        // backgroundColor: Colors.red,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            12.0,
-                                          ),
-                                        ),
-                                      ),
-                                      child: const Text("Guest?"),
-                                      onPressed: () async {},
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                      const SizedBox(
-                        height: 16.0,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SubtitleTextWidget(label: "New here?"),
-                          TextButton(
-                            child: const SubtitleTextWidget(
-                              label: "Sign up ?",
-                              fontStyle: FontStyle.italic,
-                              textDecoration: TextDecoration.underline,
-                            ),
-                            onPressed: () {
-                              Navigator.of(context)
-                                  .pushNamed(RegisterScreen.routName);
-                            },
-                          ),
-                        ],
-                      )
                     ],
                   ),
                 ),
