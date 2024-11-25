@@ -1,5 +1,6 @@
 import 'package:elamri_shop_users/consts/validator.dart';
 import 'package:elamri_shop_users/widgets/app_name_text.dart';
+import 'package:elamri_shop_users/widgets/auth/google_btn.dart';
 import 'package:elamri_shop_users/widgets/subtitle_screen.dart';
 import 'package:elamri_shop_users/widgets/title_text.dart';
 import 'package:flutter/material.dart';
@@ -158,30 +159,43 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const SizedBox(
                         height: 16.0,
-                      ),
-                      SubtitleTextWidget(
-                        label: "Or connect using".toUpperCase(),
-                      ),
-                      const SizedBox(
-                        height: 16.0,
-                      ),
-                      Row(
-                        children: [
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.all(12.0),
-                              // backgroundColor: Colors.red,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                  12.0,
+                      ), SizedBox(
+                        height: kBottomNavigationBarHeight + 10,
+                        child: Row(
+                          children: [
+                            const Expanded(
+                              flex: 2,
+                              child: SizedBox(
+                                height: kBottomNavigationBarHeight,
+                                child: FittedBox(
+                                  child: GoogleButton(),
                                 ),
                               ),
                             ),
-                            child: const Text("Guest?"),
-                            onPressed: () async {},
+                            const SizedBox(
+                              width: 8,
+                            ),
+                          Expanded(
+                                  child: SizedBox(
+                                    height: kBottomNavigationBarHeight,
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        padding: const EdgeInsets.all(12.0),
+                                        // backgroundColor: Colors.red,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            12.0,
+                                          ),
+                                        ),
+                                      ),
+                                      child: const Text("Guest?"),
+                                      onPressed: () async {},
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ],
-                      ),
                       const SizedBox(
                         height: 16.0,
                       ),
