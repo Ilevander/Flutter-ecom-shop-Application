@@ -2,17 +2,11 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:elamri_shop_users/consts/app_constants.dart';
 import 'package:elamri_shop_users/widgets/products/ctg_rounded_widget.dart';
 import 'package:elamri_shop_users/widgets/products/latest_arrival.dart';
-import 'package:elamri_shop_users/widgets/subtitle_screen.dart';
 import 'package:elamri_shop_users/widgets/title_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:provider/provider.dart';
-import 'package:elamri_shop_users/providers/theme_provider.dart';
 
 import '../services/assets_manager.dart';
 import '../widgets/app_name_text.dart';
-import '../widgets/subtitle_text.dart';
-import '../widgets/title_text.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -87,7 +81,7 @@ class HomeScreen extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   itemCount: 10,
                   itemBuilder: (context, index) {
-                    return LatestArrivalProductsWidget();
+                    return const LatestArrivalProductsWidget();
                   }),
             ),
             // const SizedBox(

@@ -4,12 +4,8 @@ import 'package:elamri_shop_users/widgets/products/heart_btn.dart';
 import 'package:elamri_shop_users/widgets/subtitle_screen.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 
 import '../../consts/app_constants.dart';
-import '../subtitle_text.dart';
 
 class LatestArrivalProductsWidget extends StatelessWidget {
   const LatestArrivalProductsWidget({super.key});
@@ -67,7 +63,7 @@ class LatestArrivalProductsWidget extends StatelessWidget {
                     ),
                     const FittedBox(
                       child: SubtitleTextWidget(
-                        label: "1550.00 \MAD",
+                        label: "1550.00 MAD",
                         fontWeight: FontWeight.w600,
                         color: Colors.blue,
                       ),

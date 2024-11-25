@@ -1,15 +1,11 @@
 import 'package:elamri_shop_users/widgets/subtitle_screen.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:elamri_shop_users/widgets/title_text.dart';
 
 import '../../consts/app_constants.dart';
 import '../../widgets/app_name_text.dart';
 import '../../widgets/products/heart_btn.dart';
-import '../../widgets/subtitle_text.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   static const routName = "/ProductDetailsScreen";
@@ -116,9 +112,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       TitlesTextWidget(label: "About this item"),
                       SubtitleTextWidget(label: "In Phone"),
                     ],

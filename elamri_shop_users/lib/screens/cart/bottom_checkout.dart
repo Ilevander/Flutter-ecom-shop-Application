@@ -1,8 +1,5 @@
 import 'package:elamri_shop_users/widgets/subtitle_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:elamri_shop_users/widgets/subtitle_text.dart';
 import 'package:elamri_shop_users/widgets/title_text.dart';
 
 class CartBottomSheetWidget extends StatelessWidget {
@@ -24,15 +21,15 @@ class CartBottomSheetWidget extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Flexible(
+              const Flexible(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     FittedBox(
                         child: TitlesTextWidget(
                             label: "Total (6 products/9 items)")),
                     SubtitleTextWidget(
-                      label: "16.0 \MAD",
+                      label: "16.0 MAD",
                       color: Colors.blue,
                     ),
                   ],

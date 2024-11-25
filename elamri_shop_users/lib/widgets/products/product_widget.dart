@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:elamri_shop_users/screens/inner_screen/product_details.dart';
 import 'package:elamri_shop_users/widgets/products/heart_btn.dart';
@@ -6,9 +5,6 @@ import 'package:elamri_shop_users/widgets/subtitle_screen.dart';
 import 'package:elamri_shop_users/widgets/title_text.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 
 import '../../consts/app_constants.dart';
 
@@ -54,7 +50,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                       maxLines: 2,
                     ),
                   ),
-                  Flexible(
+                  const Flexible(
                     flex: 2,
                     child: HeartButtonWidget(),
                   ),
@@ -72,7 +68,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                   const Flexible(
                     flex: 1,
                     child: SubtitleTextWidget(
-                      label: "1550.00 \MAD",
+                      label: "1550.00 MAD",
                       fontWeight: FontWeight.w600,
                       color: Colors.blue,
                     ),

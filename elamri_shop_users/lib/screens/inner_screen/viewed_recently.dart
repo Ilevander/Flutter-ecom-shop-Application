@@ -1,29 +1,29 @@
-import 'package:elamri_shop_users/screens/cart/bottom_checkout.dart';
-import 'package:elamri_shop_users/screens/cart/cart_widget.dart';
+import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:elamri_shop_users/services/assets_manager.dart';
-import 'package:flutter/material.dart';
 import 'package:elamri_shop_users/widgets/empty_bag.dart';
+import 'package:elamri_shop_users/widgets/title_text.dart';
 
-import '../../widgets/title_text.dart';
+import 'package:flutter/material.dart';
 
-class CartScreen extends StatelessWidget {
-  const CartScreen({super.key});
+import '../../widgets/products/product_widget.dart';
 
+class ViewedRecentlyScreen extends StatelessWidget {
+  static const routName = "/ViewedRecentlyScreen";
+  const ViewedRecentlyScreen({super.key});
   final bool isEmpty = false;
   @override
   Widget build(BuildContext context) {
     return isEmpty
         ? Scaffold(
             body: EmptyBagWidget(
-              imagePath: AssetsManager.shoppingBasket,
-              title: "Your cart is empty",
+              imagePath: AssetsManager.orderBag,
+              title: "No viewed products yet",
               subtitle:
                   "Looks like your cart is empty add something and make me happy",
               buttonText: "Shop now",
             ),
           )
         : Scaffold(
-          bottomSheet: const CartBottomSheetWidget(),
             appBar: AppBar(
               leading: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -31,7 +31,7 @@ class CartScreen extends StatelessWidget {
                   AssetsManager.shoppingCart,
                 ),
               ),
-              title: const TitlesTextWidget(label: "Cart (6)"),
+              title: const TitlesTextWidget(label: "Viewed recently (6)"),
               actions: [
                 IconButton(
                   onPressed: () {},
@@ -42,11 +42,15 @@ class CartScreen extends StatelessWidget {
                 ),
               ],
             ),
-            body: ListView.builder(
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return const CartWidget();
-                }),
+            body: DynamicHeightGridView(
+              mainAxisSpacing: 12,
+              crossAxisSpacing: 12,
+              builder: (context, index) {
+                return const ProductWidget();
+              },
+              itemCount: 200,
+              crossAxisCount: 2,
+            ),
           );
   }
 }

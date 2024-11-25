@@ -1,6 +1,7 @@
+import 'package:elamri_shop_users/screens/inner_screen/viewed_recently.dart';
+import 'package:elamri_shop_users/screens/inner_screen/wishlist.dart';
 import 'package:elamri_shop_users/widgets/app_name_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:elamri_shop_users/services/assets_manager.dart';
@@ -50,7 +51,7 @@ class ProfileScreen extends StatelessWidget {
                       shape: BoxShape.circle,
                       color: Theme.of(context).cardColor,
                       border: Border.all(
-                          color: Theme.of(context).colorScheme.background,
+                          color: Theme.of(context).colorScheme.surface,
                           width: 3),
                       image: const DecorationImage(
                         image: NetworkImage(
@@ -63,9 +64,9 @@ class ProfileScreen extends StatelessWidget {
                   const SizedBox(
                     width: 10,
                   ),
-                  Column(
+                  const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       TitlesTextWidget(label: "EL AMRI Ilyass"),
                       SizedBox(
                         height: 6,
@@ -105,12 +106,16 @@ class ProfileScreen extends StatelessWidget {
                 CustomListTile(
                   text: "Wishlist",
                   imagePath: AssetsManager.wishlistSvg,
-                  function: () {},
+                  function: () {
+                    Navigator.pushNamed(context, WishlistScreen.routName);
+                  },
                 ),
                 CustomListTile(
                   text: "Viewed recently",
                   imagePath: AssetsManager.recent,
-                  function: () {},
+                  function: () {
+                    Navigator.pushNamed(context, ViewedRecentlyScreen.routName);
+                  },
                 ),
                 CustomListTile(
                   text: "Address",

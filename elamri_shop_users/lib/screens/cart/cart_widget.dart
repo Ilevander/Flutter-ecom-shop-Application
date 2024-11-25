@@ -3,8 +3,6 @@ import 'package:elamri_shop_users/screens/cart/quantity_btm_sheet.dart';
 import 'package:elamri_shop_users/widgets/products/heart_btn.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:elamri_shop_users/widgets/subtitle_screen.dart';
 import 'package:elamri_shop_users/widgets/title_text.dart';
@@ -63,7 +61,7 @@ class CartWidget extends StatelessWidget {
                       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const SubtitleTextWidget(
-                          label: "16.00 \MAD",
+                          label: "16.00 MAD",
                           color: Colors.blue,
                         ),
                         const Spacer(),

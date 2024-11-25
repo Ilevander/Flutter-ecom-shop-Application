@@ -2,7 +2,6 @@ import 'package:elamri_shop_users/screens/cart/cart_screen.dart';
 import 'package:elamri_shop_users/screens/profile_screen.dart';
 import 'package:elamri_shop_users/screens/search_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:elamri_shop_users/screens/home_screen.dart';
 
