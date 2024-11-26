@@ -1,9 +1,12 @@
 import 'package:elamri_shop_users/consts/validator.dart';
+import 'package:elamri_shop_users/services/my_app_functions.dart';
 import 'package:elamri_shop_users/widgets/app_name_text.dart';
+import 'package:elamri_shop_users/widgets/auth/image_picker_widget.dart';
 import 'package:elamri_shop_users/widgets/subtitle_screen.dart';
 import 'package:elamri_shop_users/widgets/title_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:image_picker/image_picker.dart';
  
 
 class RegisterScreen extends StatefulWidget {
@@ -27,6 +30,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       _repeatPasswordFocusNode;
 
   final _formkey = GlobalKey<FormState>();
+    XFile? _pickedImage;
   @override
   void initState() {
     _nameController = TextEditingController();
@@ -62,8 +66,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
     FocusScope.of(context).unfocus();
   }
 
+   Future<void> localImagePicker() async {
+    final ImagePicker imagePicker = ImagePicker();
+    await MyAppFunctions.imagePickerDialog(
+      context: context,
+      cameraFCT: () async {
+        _pickedImage = await imagePicker.pickImage(source: ImageSource.camera);
+        setState(() {});
+      },
+      galleryFCT: () async {
+        _pickedImage = await imagePicker.pickImage(source: ImageSource.gallery);
+        setState(() {});
+      },
+      removeFCT: () {
+        setState(() {
+          _pickedImage = null;
+        });
+      },
+    );
+  }
+
+  
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -84,15 +110,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 const SizedBox(
                   height: 30,
                 ),
-                const Align(
-                    alignment: Alignment.centerLeft,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        TitlesTextWidget(label: "Welcome back!"),
-                        SubtitleTextWidget(label: "Your welcome message"),
-                      ],
-                    )),
+                const SizedBox(
+                  height: 30,
+                ),
+                SizedBox(
+                  height: size.width * 0.3,
+                  width: size.width * 0.3,
+                  child: PickImageWidget(
+                    pickedImage: _pickedImage,
+                    function: () async {
+                        await localImagePicker();
+                    },
+                  ),
+                ),
                 const SizedBox(
                   height: 30,
                 ),
