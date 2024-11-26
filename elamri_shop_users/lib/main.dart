@@ -1,5 +1,6 @@
 import 'package:elamri_shop_users/root_screen.dart';
 import 'package:elamri_shop_users/screens/auth/login.dart';
+import 'package:elamri_shop_users/screens/inner_screen/orders/orders_screen.dart';
 import 'package:elamri_shop_users/screens/inner_screen/product_details.dart';
 import 'package:elamri_shop_users/screens/inner_screen/viewed_recently.dart';
 import 'package:elamri_shop_users/screens/inner_screen/wishlist.dart';
@@ -31,15 +32,16 @@ class MyApp extends StatelessWidget {
           title: 'Elamri-Shop MA',
           theme: Styles.themeData(
               isDarkTheme: themeProvider.getIsDarkTheme, context: context),
-          //home: const RootScreen(),
           home: const LoginScreen(),
+          //home: const RootScreen(),
           routes: {
-            ProductDetailsScreen.routName: (context) =>
-                const ProductDetailsScreen(),
+            LoginScreen.routeName: (context) => const LoginScreen(),
+            ProductDetailsScreen.routName: (context) => const ProductDetailsScreen(),
             WishlistScreen.routName: (context) => const WishlistScreen(),
-            ViewedRecentlyScreen.routName: (context) =>
-                const ViewedRecentlyScreen(),
-                RegisterScreen.routName: (context) => const RegisterScreen(),
+            ViewedRecentlyScreen.routName: (context) => const ViewedRecentlyScreen(),
+            RegisterScreen.routName: (context) => const RegisterScreen(),
+            RootScreen.routeName: (context) => const RootScreen(),
+            OrdersScreenFree.routeName: (context) => const OrdersScreenFree(),
           },
         );
       }),

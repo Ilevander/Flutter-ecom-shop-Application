@@ -1,3 +1,5 @@
+import 'package:elamri_shop_users/screens/auth/login.dart';
+import 'package:elamri_shop_users/screens/inner_screen/orders/orders_screen.dart';
 import 'package:elamri_shop_users/screens/inner_screen/viewed_recently.dart';
 import 'package:elamri_shop_users/screens/inner_screen/wishlist.dart';
 import 'package:elamri_shop_users/services/my_app_functions.dart';
@@ -102,7 +104,12 @@ class ProfileScreen extends StatelessWidget {
                 CustomListTile(
                   text: "All Order",
                   imagePath: AssetsManager.orderSvg,
-                  function: () {},
+                  function: () {
+                    Navigator.pushNamed(
+                        context,
+                        OrdersScreenFree.routeName,
+                      );
+                  },
                 ),
                 CustomListTile(
                   text: "Wishlist",
@@ -161,11 +168,12 @@ class ProfileScreen extends StatelessWidget {
               icon: const Icon(Icons.login),
               label: const Text("Login"),
               onPressed: () async {
-                  await MyAppFunctions.showErrorOrWarningDialog(
-                      context: context,
-                      subtitle: "Are you sure you want to signout",
-                      fct: () {},
-                      isError: false);
+                Navigator.pushNamed(context, LoginScreen.routeName);
+                  // await MyAppFunctions.showErrorOrWarningDialog(
+                  //     context: context,
+                  //     subtitle: "Are you sure you want to signout",
+                  //     fct: () {},
+                  //     isError: false);
                 },
             ),
           ),

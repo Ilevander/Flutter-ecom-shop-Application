@@ -1,4 +1,5 @@
 import 'package:elamri_shop_users/consts/validator.dart';
+import 'package:elamri_shop_users/root_screen.dart';
 import 'package:elamri_shop_users/widgets/app_name_text.dart';
 import 'package:elamri_shop_users/widgets/auth/google_btn.dart';
 import 'package:elamri_shop_users/screens/auth/register.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 
 
 class LoginScreen extends StatefulWidget {
+  static const routeName = '/LoginScreen';
   const LoginScreen({super.key});
 
   @override
@@ -16,6 +18,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  
   bool obscureText = true;
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
@@ -205,7 +208,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ),
                                       ),
                                       child: const Text("Guest?"),
-                                      onPressed: () async {},
+                                      onPressed: () async {
+                                    Navigator.of(context)
+                                        .pushNamed(RootScreen.routeName);
+                                  },
                                     ),
                                   ),
                                 ),

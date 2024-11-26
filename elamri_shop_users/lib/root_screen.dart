@@ -6,6 +6,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:elamri_shop_users/screens/home_screen.dart';
 
 class RootScreen extends StatefulWidget {
+  static const routeName = '/RootScreen';
   const RootScreen({super.key});
 
   @override
@@ -14,7 +15,7 @@ class RootScreen extends StatefulWidget {
 
 class _RootScreenState extends State<RootScreen> {
   late List<Widget> screens;
-  int currentScreen = 1;
+  int currentScreen = 0;
   late PageController controller;
   @override
   void initState() {
@@ -61,10 +62,10 @@ class _RootScreenState extends State<RootScreen> {
           NavigationDestination(
             selectedIcon: Icon(IconlyBold.bag2),
             icon: Badge(
-              backgroundColor: Colors.blue,
-              textColor: Colors.white,
-              label: Text("5"), 
-              child: Icon(IconlyLight.bag2)),
+                backgroundColor: Colors.blue,
+                textColor: Colors.white,
+                label: Text("5"),
+                child: Icon(IconlyLight.bag2)),
             label: "Cart",
           ),
           NavigationDestination(
