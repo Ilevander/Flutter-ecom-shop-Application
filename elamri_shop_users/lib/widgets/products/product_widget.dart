@@ -14,11 +14,9 @@ import '../../consts/app_constants.dart';
 class ProductWidget extends StatefulWidget {
   const ProductWidget({
     super.key,
-    this.image,
-    this.title,
-    this.price,
+    required this.productId,
   });
-  final String? image, title, price;
+  final String productId;
 
   @override
   State<ProductWidget> createState() => _ProductWidgetState();
@@ -27,89 +25,94 @@ class ProductWidget extends StatefulWidget {
 class _ProductWidgetState extends State<ProductWidget> {
   @override
   Widget build(BuildContext context) {
-    final productsModelProvider = Provider.of<ProductModel>(context);
+    //final productsModelProvider = Provider.of<ProductModel>(context);
+    final productsProvider = Provider.of<ProductsProvider>(context);
+    final getCurrProduct = productsProvider.findByProdId(widget.productId);
     Size size = MediaQuery.of(context).size;
-    return Padding(
-      padding: const EdgeInsets.all(0.0),
-      child: GestureDetector(
-        onTap: () async {
-          await Navigator.pushNamed(context, ProductDetailsScreen.routName);
-        },
-        child: Column(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(12.0),
-              child: FancyShimmerImage(
-                imageUrl: productsModelProvider.productImage,
-                height: size.height * 0.22,
-                width: double.infinity,
-              ),
-            ),
-            const SizedBox(
-              height: 12.0,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(2.0),
-              child: Row(
+    return getCurrProduct == null
+        ? const SizedBox.shrink()
+        : Padding(
+            padding: const EdgeInsets.all(0.0),
+            child: GestureDetector(
+              onTap: () async {
+                await Navigator.pushNamed(
+                    context, ProductDetailsScreen.routName);
+              },
+              child: Column(
                 children: [
-                  Flexible(
-                    flex: 5,
-                    child: TitlesTextWidget(
-                      label: productsModelProvider.productTitle,
-                      fontSize: 18,
-                      maxLines: 2,
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12.0),
+                    child: FancyShimmerImage(
+                      imageUrl: getCurrProduct.productImage,
+                      height: size.height * 0.22,
+                      width: double.infinity,
                     ),
                   ),
-                  const Flexible(
-                    flex: 2,
-                    child: HeartButtonWidget(),
+                  const SizedBox(
+                    height: 12.0,
                   ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 6.0,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(2.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(
-                    flex: 1,
-                    child: SubtitleTextWidget(
-                      label: "${productsModelProvider.productPrice} \MAD",
-                      fontWeight: FontWeight.w600,
-                      color: Colors.blue,
-                    ),
-                  ),
-                  Flexible(
-                    child: Material(
-                      borderRadius: BorderRadius.circular(12.0),
-                      color: Colors.lightBlue,
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(12.0),
-                        onTap: () {},
-                        splashColor: Colors.red,
-                        child: const Padding(
-                          padding: EdgeInsets.all(6.0),
-                          child: Icon(
-                            Icons.add_shopping_cart_outlined,
-                            size: 20,
+                  Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: Row(
+                      children: [
+                        Flexible(
+                          flex: 5,
+                          child: TitlesTextWidget(
+                            label: getCurrProduct.productTitle,
+                            fontSize: 18,
+                            maxLines: 2,
                           ),
                         ),
-                      ),
+                        const Flexible(
+                          flex: 2,
+                          child: HeartButtonWidget(),
+                        ),
+                      ],
                     ),
+                  ),
+                  const SizedBox(
+                    height: 6.0,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          flex: 1,
+                          child: SubtitleTextWidget(
+                            label: "${getCurrProduct.productPrice} \MAD",
+                            fontWeight: FontWeight.w600,
+                            color: Colors.blue,
+                          ),
+                        ),
+                        Flexible(
+                          child: Material(
+                            borderRadius: BorderRadius.circular(12.0),
+                            color: Colors.lightBlue,
+                            child: InkWell(
+                              borderRadius: BorderRadius.circular(12.0),
+                              onTap: () {},
+                              splashColor: Colors.red,
+                              child: const Padding(
+                                padding: EdgeInsets.all(6.0),
+                                child: Icon(
+                                  Icons.add_shopping_cart_outlined,
+                                  size: 20,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 12.0,
                   ),
                 ],
               ),
             ),
-            const SizedBox(
-              height: 12.0,
-            ),
-          ],
-        ),
-      ),
-    );
+          );
   }
 }

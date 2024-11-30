@@ -4,7 +4,6 @@ import 'package:elamri_shop_users/widgets/empty_bag.dart';
 import 'package:elamri_shop_users/widgets/title_text.dart';
 import 'package:flutter/material.dart';
 
-
 import '../../widgets/products/product_widget.dart';
 
 class WishlistScreen extends StatelessWidget {
@@ -46,7 +45,9 @@ class WishlistScreen extends StatelessWidget {
               mainAxisSpacing: 12,
               crossAxisSpacing: 12,
               builder: (context, index) {
-                return const ProductWidget();
+                return const ProductWidget(
+                  productId: "",
+                );
               },
               itemCount: 200,
               crossAxisCount: 2,

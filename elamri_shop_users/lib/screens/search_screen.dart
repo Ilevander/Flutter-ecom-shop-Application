@@ -92,10 +92,12 @@ class _SearchScreenState extends State<SearchScreen> {
                     builder: (context, index) {
                       return ChangeNotifierProvider.value(
                         value: productsProvider.getProducts[index],
-                        child: const ProductWidget(),
+                        child: ProductWidget(
+                          productId:
+                              productsProvider.getProducts[index].productId,
+                        ),
                       );
-                    }
-                ),
+                    }),
               ),
             ],
           ),
