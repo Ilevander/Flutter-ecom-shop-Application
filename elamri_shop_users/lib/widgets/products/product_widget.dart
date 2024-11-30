@@ -1,11 +1,13 @@
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:elamri_shop_users/models/product_model.dart';
+import 'package:elamri_shop_users/providers/products_provider.dart';
 import 'package:elamri_shop_users/screens/inner_screen/product_details.dart';
 import 'package:elamri_shop_users/widgets/products/heart_btn.dart';
 import 'package:elamri_shop_users/widgets/subtitle_screen.dart';
 import 'package:elamri_shop_users/widgets/title_text.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../consts/app_constants.dart';
 
@@ -25,6 +27,7 @@ class ProductWidget extends StatefulWidget {
 class _ProductWidgetState extends State<ProductWidget> {
   @override
   Widget build(BuildContext context) {
+    final productsModelProvider = Provider.of<ProductModel>(context);
     Size size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.all(0.0),
@@ -37,7 +40,7 @@ class _ProductWidgetState extends State<ProductWidget> {
             ClipRRect(
               borderRadius: BorderRadius.circular(12.0),
               child: FancyShimmerImage(
-                imageUrl: widget.image ?? AppConstants.imageUrl,
+                imageUrl: productsModelProvider.productImage,
                 height: size.height * 0.22,
                 width: double.infinity,
               ),
@@ -52,7 +55,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                   Flexible(
                     flex: 5,
                     child: TitlesTextWidget(
-                      label: widget.title ?? "Title " * 10,
+                      label: productsModelProvider.productTitle,
                       fontSize: 18,
                       maxLines: 2,
                     ),
@@ -72,10 +75,10 @@ class _ProductWidgetState extends State<ProductWidget> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                   Flexible(
+                  Flexible(
                     flex: 1,
                     child: SubtitleTextWidget(
-                      label:  "${widget.price}\MAD" ??"1550.00 MAD",
+                      label: "${productsModelProvider.productPrice} \MAD",
                       fontWeight: FontWeight.w600,
                       color: Colors.blue,
                     ),

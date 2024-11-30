@@ -1,5 +1,8 @@
 import 'package:elamri_shop_users/models/product_model.dart';
+import 'package:elamri_shop_users/providers/products_provider.dart';
+import 'package:elamri_shop_users/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../services/assets_manager.dart';
 import '../widgets/products/product_widget.dart';
@@ -30,6 +33,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final productsProvider = Provider.of<ProductsProvider>(context);
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -81,17 +85,16 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
               Expanded(
                 child: DynamicHeightGridView(
-                  itemCount: ProductModel.products.length,
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 12,
-                  crossAxisSpacing: 12,
-                  builder: (context, index) {
-                    return ProductWidget(
-                      image: ProductModel.products[index].productImage,
-                      price: ProductModel.products[index].productPrice,
-                      title: ProductModel.products[index].productTitle,
-                    );
-                  },
+                    itemCount: productsProvider.getProducts.length,
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 12,
+                    crossAxisSpacing: 12,
+                    builder: (context, index) {
+                      return ChangeNotifierProvider.value(
+                        value: productsProvider.getProducts[index],
+                        child: const ProductWidget(),
+                      );
+                    }
                 ),
               ),
             ],

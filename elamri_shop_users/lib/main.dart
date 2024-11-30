@@ -1,3 +1,4 @@
+import 'package:elamri_shop_users/providers/products_provider.dart';
 import 'package:elamri_shop_users/root_screen.dart';
 import 'package:elamri_shop_users/screens/auth/forgot_password.dart';
 import 'package:elamri_shop_users/screens/auth/login.dart';
@@ -26,6 +27,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) {
           return ThemeProvider();
+        }),
+        ChangeNotifierProvider(create: (_) {
+          return ProductsProvider();
         })
       ],
       child: Consumer<ThemeProvider>(builder: (context, themeProvider, child) {
@@ -37,13 +41,16 @@ class MyApp extends StatelessWidget {
           //home: const RootScreen(),
           routes: {
             LoginScreen.routeName: (context) => const LoginScreen(),
-            ProductDetailsScreen.routName: (context) => const ProductDetailsScreen(),
+            ProductDetailsScreen.routName: (context) =>
+                const ProductDetailsScreen(),
             WishlistScreen.routName: (context) => const WishlistScreen(),
-            ViewedRecentlyScreen.routName: (context) => const ViewedRecentlyScreen(),
+            ViewedRecentlyScreen.routName: (context) =>
+                const ViewedRecentlyScreen(),
             RegisterScreen.routName: (context) => const RegisterScreen(),
             RootScreen.routeName: (context) => const RootScreen(),
             OrdersScreenFree.routeName: (context) => const OrdersScreenFree(),
-            ForgotPasswordScreen.routeName: (context) => const ForgotPasswordScreen(),
+            ForgotPasswordScreen.routeName: (context) =>
+                const ForgotPasswordScreen(),
           },
         );
       }),
