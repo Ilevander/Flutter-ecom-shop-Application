@@ -1,4 +1,5 @@
-
+import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
+import 'package:elamri_shop_users/models/product_model.dart';
 import 'package:elamri_shop_users/screens/inner_screen/product_details.dart';
 import 'package:elamri_shop_users/widgets/products/heart_btn.dart';
 import 'package:elamri_shop_users/widgets/subtitle_screen.dart';
@@ -9,7 +10,13 @@ import 'package:flutter/material.dart';
 import '../../consts/app_constants.dart';
 
 class ProductWidget extends StatefulWidget {
-  const ProductWidget({super.key});
+  const ProductWidget({
+    super.key,
+    this.image,
+    this.title,
+    this.price,
+  });
+  final String? image, title, price;
 
   @override
   State<ProductWidget> createState() => _ProductWidgetState();
@@ -24,13 +31,13 @@ class _ProductWidgetState extends State<ProductWidget> {
       child: GestureDetector(
         onTap: () async {
           await Navigator.pushNamed(context, ProductDetailsScreen.routName);
-        },  
+        },
         child: Column(
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(12.0),
               child: FancyShimmerImage(
-                imageUrl: AppConstants.imageUrl,
+                imageUrl: widget.image ?? AppConstants.imageUrl,
                 height: size.height * 0.22,
                 width: double.infinity,
               ),
@@ -45,7 +52,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                   Flexible(
                     flex: 5,
                     child: TitlesTextWidget(
-                      label: "Title " * 10,
+                      label: widget.title ?? "Title " * 10,
                       fontSize: 18,
                       maxLines: 2,
                     ),
@@ -65,10 +72,10 @@ class _ProductWidgetState extends State<ProductWidget> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Flexible(
+                   Flexible(
                     flex: 1,
                     child: SubtitleTextWidget(
-                      label: "1550.00 MAD",
+                      label:  "${widget.price}\MAD" ??"1550.00 MAD",
                       fontWeight: FontWeight.w600,
                       color: Colors.blue,
                     ),
@@ -83,8 +90,10 @@ class _ProductWidgetState extends State<ProductWidget> {
                         splashColor: Colors.red,
                         child: const Padding(
                           padding: EdgeInsets.all(6.0),
-                          child:
-                              Icon(Icons.add_shopping_cart_outlined, size: 20),
+                          child: Icon(
+                            Icons.add_shopping_cart_outlined,
+                            size: 20,
+                          ),
                         ),
                       ),
                     ),

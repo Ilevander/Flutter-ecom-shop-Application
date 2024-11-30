@@ -1,4 +1,4 @@
-
+import 'package:elamri_shop_users/models/product_model.dart';
 import 'package:flutter/material.dart';
 
 import '../services/assets_manager.dart';
@@ -81,13 +81,18 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
               Expanded(
                 child: DynamicHeightGridView(
-                    mainAxisSpacing: 12,
-                    crossAxisSpacing: 12,
-                    builder: (context, index) {
-                      return const ProductWidget();
-                    },
-                    itemCount: 200,
-                    crossAxisCount: 2),
+                  itemCount: ProductModel.products.length,
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 12,
+                  crossAxisSpacing: 12,
+                  builder: (context, index) {
+                    return ProductWidget(
+                      image: ProductModel.products[index].productImage,
+                      price: ProductModel.products[index].productPrice,
+                      title: ProductModel.products[index].productTitle,
+                    );
+                  },
+                ),
               ),
             ],
           ),

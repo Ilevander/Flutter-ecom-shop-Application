@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:elamri_shop_users/screens/inner_screen/product_details.dart';
 import 'package:elamri_shop_users/widgets/products/heart_btn.dart';
 import 'package:elamri_shop_users/widgets/subtitle_screen.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
@@ -16,8 +17,12 @@ class LatestArrivalProductsWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
-        onTap: () {
-          log("ToDo add the navigate to the product details screen");
+        onTap: () async{
+          //log("ToDo add the navigate to the product details screen");
+          await Navigator.pushNamed(
+            context,
+            ProductDetailsScreen.routName,
+          );
         },
         child: SizedBox(
           width: size.width * 0.45,

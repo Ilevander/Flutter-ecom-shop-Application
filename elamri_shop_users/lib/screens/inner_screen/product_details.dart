@@ -67,7 +67,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         width: 20,
                       ),
                       const SubtitleTextWidget(
-                        label: "1550.00\$",
+                        label: "1550.00 \MAD",
                         fontSize: 20,
                         fontWeight: FontWeight.w700,
                         color: Colors.blue,

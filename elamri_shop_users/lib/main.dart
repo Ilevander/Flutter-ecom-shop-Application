@@ -1,4 +1,5 @@
 import 'package:elamri_shop_users/root_screen.dart';
+import 'package:elamri_shop_users/screens/auth/forgot_password.dart';
 import 'package:elamri_shop_users/screens/auth/login.dart';
 import 'package:elamri_shop_users/screens/inner_screen/orders/orders_screen.dart';
 import 'package:elamri_shop_users/screens/inner_screen/product_details.dart';
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
             RegisterScreen.routName: (context) => const RegisterScreen(),
             RootScreen.routeName: (context) => const RootScreen(),
             OrdersScreenFree.routeName: (context) => const OrdersScreenFree(),
+            ForgotPasswordScreen.routeName: (context) => const ForgotPasswordScreen(),
           },
         );
       }),

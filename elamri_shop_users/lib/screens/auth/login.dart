@@ -1,5 +1,6 @@
 import 'package:elamri_shop_users/consts/validator.dart';
 import 'package:elamri_shop_users/root_screen.dart';
+import 'package:elamri_shop_users/screens/auth/forgot_password.dart';
 import 'package:elamri_shop_users/widgets/app_name_text.dart';
 import 'package:elamri_shop_users/widgets/auth/google_btn.dart';
 import 'package:elamri_shop_users/screens/auth/register.dart';
@@ -146,7 +147,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       Align(
                         alignment: Alignment.centerRight,
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(
+                              ForgotPasswordScreen.routeName,
+                            );
+                          },
                           child: const SubtitleTextWidget(
                             label: "Forgot password?",
                             fontStyle: FontStyle.italic,
@@ -178,7 +183,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const SizedBox(
                         height: 16.0,
-                      ), SizedBox(
+                      ), 
+                      SubtitleTextWidget(
+                        label: "Or connect using".toUpperCase(),
+                      ),
+                      const SizedBox(
+                        height: 16.0,
+                      ),SizedBox(
                         height: kBottomNavigationBarHeight + 10,
                         child: Row(
                           children: [
