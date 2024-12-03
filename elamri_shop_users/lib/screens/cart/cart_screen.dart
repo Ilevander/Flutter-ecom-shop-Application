@@ -27,7 +27,7 @@ class CartScreen extends StatelessWidget {
             ),
           )
         : Scaffold(
-          bottomSheet: const CartBottomSheetWidget(),
+            bottomSheet: const CartBottomSheetWidget(),
             appBar: AppBar(
               leading: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -35,8 +35,8 @@ class CartScreen extends StatelessWidget {
                   AssetsManager.shoppingCart,
                 ),
               ),
-              title:  TitlesTextWidget(
-                label: "Cart (${cartProvider.getCartitems.length})"),
+              title: TitlesTextWidget(
+                  label: "Cart (${cartProvider.getCartitems.length})"),
               actions: [
                 IconButton(
                   onPressed: () {},
@@ -47,11 +47,23 @@ class CartScreen extends StatelessWidget {
                 ),
               ],
             ),
-            body: ListView.builder(
-                itemCount: cartProvider.getCartitems.length,
-                itemBuilder: (context, index) {
-                  return const CartWidget();
-                }),
+            body: Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                      itemCount: cartProvider.getCartitems.length,
+                      itemBuilder: (context, index) {
+                        return ChangeNotifierProvider.value(
+                            value: cartProvider.getCartitems.values
+                                .toList()[index],
+                            child: const CartWidget());
+                      }),
+                ),
+                const SizedBox(
+                  height: kBottomNavigationBarHeight + 10,
+                )
+              ],
+            ),
           );
   }
 }
