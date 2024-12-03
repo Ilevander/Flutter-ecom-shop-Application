@@ -1,3 +1,4 @@
+import 'package:elamri_shop_users/providers/cart_provider.dart';
 import 'package:elamri_shop_users/providers/products_provider.dart';
 import 'package:elamri_shop_users/widgets/subtitle_screen.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
@@ -24,6 +25,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     String? productId = ModalRoute.of(context)!.settings.arguments as String?;
     final getCurrProduct = productsProvider.findByProdId(productId!);
     Size size = MediaQuery.of(context).size;
+    final cartProvider = Provider.of<CartProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -107,9 +110,26 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                         ),
                                       ),
                                     ),
-                                    onPressed: () {},
-                                    icon: const Icon(Icons.add_shopping_cart),
-                                    label: const Text("Add to cart"),
+                                    onPressed: () {
+                                      if (cartProvider.isProdinCart(
+                                          productId:
+                                              getCurrProduct.productId)) {
+                                        return;
+                                      }
+                                      cartProvider.addProductToCart(
+                                          productId: getCurrProduct.productId);
+                                    },
+                                    icon: Icon(
+                                      cartProvider.isProdinCart(
+                                              productId:
+                                                  getCurrProduct.productId)
+                                          ? Icons.check
+                                          : Icons.add_shopping_cart_outlined,
+                                    ),
+                                    label: Text(cartProvider.isProdinCart(
+                                            productId: getCurrProduct.productId)
+                                        ? "In cart"
+                                        : "Add to cart"),
                                   ),
                                 ),
                               ),

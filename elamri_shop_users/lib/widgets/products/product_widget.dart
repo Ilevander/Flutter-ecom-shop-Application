@@ -1,5 +1,6 @@
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:elamri_shop_users/models/product_model.dart';
+import 'package:elamri_shop_users/providers/cart_provider.dart';
 import 'package:elamri_shop_users/providers/products_provider.dart';
 import 'package:elamri_shop_users/screens/inner_screen/product_details.dart';
 import 'package:elamri_shop_users/widgets/products/heart_btn.dart';
@@ -28,6 +29,8 @@ class _ProductWidgetState extends State<ProductWidget> {
     //final productsModelProvider = Provider.of<ProductModel>(context);
     final productsProvider = Provider.of<ProductsProvider>(context);
     final getCurrProduct = productsProvider.findByProdId(widget.productId);
+    final cartProvider = Provider.of<CartProvider>(context);
+
     Size size = MediaQuery.of(context).size;
     return getCurrProduct == null
         ? const SizedBox.shrink()
@@ -36,8 +39,10 @@ class _ProductWidgetState extends State<ProductWidget> {
             child: GestureDetector(
               onTap: () async {
                 await Navigator.pushNamed(
-                    context, 
-                    ProductDetailsScreen.routName,arguments: getCurrProduct.productId,);
+                  context,
+                  ProductDetailsScreen.routName,
+                  arguments: getCurrProduct.productId,
+                );
               },
               child: Column(
                 children: [
@@ -93,13 +98,24 @@ class _ProductWidgetState extends State<ProductWidget> {
                             color: Colors.lightBlue,
                             child: InkWell(
                               borderRadius: BorderRadius.circular(12.0),
-                              onTap: () {},
+                              onTap: () {
+                                if (cartProvider.isProdinCart(
+                                    productId: getCurrProduct.productId)) {
+                                  return;
+                                }
+                                cartProvider.addProductToCart( 
+                                    productId: getCurrProduct.productId);
+                              },
                               splashColor: Colors.red,
-                              child: const Padding(
+                              child:  Padding(
                                 padding: EdgeInsets.all(6.0),
                                 child: Icon(
-                                  Icons.add_shopping_cart_outlined,
+                                  cartProvider.isProdinCart(
+                                          productId: getCurrProduct.productId)
+                                      ? Icons.check
+                                      : Icons.add_shopping_cart_outlined,
                                   size: 20,
+                                  color: Colors.white,
                                 ),
                               ),
                             ),

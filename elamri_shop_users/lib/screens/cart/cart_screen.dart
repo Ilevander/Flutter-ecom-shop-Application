@@ -1,8 +1,10 @@
+import 'package:elamri_shop_users/providers/cart_provider.dart';
 import 'package:elamri_shop_users/screens/cart/bottom_checkout.dart';
 import 'package:elamri_shop_users/screens/cart/cart_widget.dart';
 import 'package:elamri_shop_users/services/assets_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:elamri_shop_users/widgets/empty_bag.dart';
+import 'package:provider/provider.dart';
 
 import '../../widgets/title_text.dart';
 
@@ -12,7 +14,9 @@ class CartScreen extends StatelessWidget {
   final bool isEmpty = false;
   @override
   Widget build(BuildContext context) {
-    return isEmpty
+    final cartProvider = Provider.of<CartProvider>(context);
+
+    return cartProvider.getCartitems.isEmpty
         ? Scaffold(
             body: EmptyBagWidget(
               imagePath: AssetsManager.shoppingBasket,
@@ -31,7 +35,8 @@ class CartScreen extends StatelessWidget {
                   AssetsManager.shoppingCart,
                 ),
               ),
-              title: const TitlesTextWidget(label: "Cart (6)"),
+              title:  TitlesTextWidget(
+                label: "Cart (${cartProvider.getCartitems.length})"),
               actions: [
                 IconButton(
                   onPressed: () {},
@@ -43,7 +48,7 @@ class CartScreen extends StatelessWidget {
               ],
             ),
             body: ListView.builder(
-                itemCount: 10,
+                itemCount: cartProvider.getCartitems.length,
                 itemBuilder: (context, index) {
                   return const CartWidget();
                 }),

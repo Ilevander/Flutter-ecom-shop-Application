@@ -1,3 +1,4 @@
+import 'package:elamri_shop_users/providers/cart_provider.dart';
 import 'package:elamri_shop_users/providers/products_provider.dart';
 import 'package:elamri_shop_users/root_screen.dart';
 import 'package:elamri_shop_users/screens/auth/forgot_password.dart';
@@ -31,7 +32,10 @@ class MyApp extends StatelessWidget {
         }),
         ChangeNotifierProvider(create: (_) {
           return ProductsProvider();
-        })
+        }),
+        ChangeNotifierProvider(create: (_) {
+          return CartProvider();
+        }),
       ],
       child: Consumer<ThemeProvider>(builder: (context, themeProvider, child) {
         return MaterialApp(
