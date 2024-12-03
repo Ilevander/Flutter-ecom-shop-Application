@@ -7,6 +7,7 @@ import 'package:elamri_shop_users/screens/inner_screen/product_details.dart';
 import 'package:elamri_shop_users/screens/inner_screen/viewed_recently.dart';
 import 'package:elamri_shop_users/screens/inner_screen/wishlist.dart';
 import 'package:elamri_shop_users/screens/auth/register.dart';
+import 'package:elamri_shop_users/screens/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:elamri_shop_users/providers/theme_provider.dart';
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
             OrdersScreenFree.routeName: (context) => const OrdersScreenFree(),
             ForgotPasswordScreen.routeName: (context) =>
                 const ForgotPasswordScreen(),
+            SearchScreen.routeName: (context) => const SearchScreen(),
           },
         );
       }),
