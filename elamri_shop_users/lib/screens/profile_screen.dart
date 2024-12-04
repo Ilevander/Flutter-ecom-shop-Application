@@ -27,7 +27,9 @@ class ProfileScreen extends StatelessWidget {
             AssetsManager.shoppingCart,
           ),
         ),
-        title: const AppNameTextWidget(fontSize: 20,),
+        title: const AppNameTextWidget(
+          fontSize: 20,
+        ),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,9 +108,9 @@ class ProfileScreen extends StatelessWidget {
                   imagePath: AssetsManager.orderSvg,
                   function: () {
                     Navigator.pushNamed(
-                        context,
-                        OrdersScreenFree.routeName,
-                      );
+                      context,
+                      OrdersScreenFree.routeName,
+                    );
                   },
                 ),
                 CustomListTile(
@@ -169,12 +171,12 @@ class ProfileScreen extends StatelessWidget {
               label: const Text("Login"),
               onPressed: () async {
                 Navigator.pushNamed(context, LoginScreen.routeName);
-                  // await MyAppFunctions.showErrorOrWarningDialog(
-                  //     context: context,
-                  //     subtitle: "Are you sure you want to signout",
-                  //     fct: () {},
-                  //     isError: false);
-                },
+                // await MyAppFunctions.showErrorOrWarningDialog(
+                //     context: context,
+                //     subtitle: "Are you sure you want to signout",
+                //     fct: () {},
+                //     isError: false);
+              },
             ),
           ),
         ],

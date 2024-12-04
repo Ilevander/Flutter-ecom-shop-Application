@@ -7,7 +7,6 @@ import 'package:elamri_shop_users/widgets/title_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:image_picker/image_picker.dart';
- 
 
 class RegisterScreen extends StatefulWidget {
   static const routName = "/RegisterScreen";
@@ -30,7 +29,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       _repeatPasswordFocusNode;
 
   final _formkey = GlobalKey<FormState>();
-    XFile? _pickedImage;
+  XFile? _pickedImage;
   @override
   void initState() {
     _nameController = TextEditingController();
@@ -66,7 +65,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     FocusScope.of(context).unfocus();
   }
 
-   Future<void> localImagePicker() async {
+  Future<void> localImagePicker() async {
     final ImagePicker imagePicker = ImagePicker();
     await MyAppFunctions.imagePickerDialog(
       context: context,
@@ -86,7 +85,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -119,7 +117,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: PickImageWidget(
                     pickedImage: _pickedImage,
                     function: () async {
-                        await localImagePicker();
+                      await localImagePicker();
                     },
                   ),
                 ),

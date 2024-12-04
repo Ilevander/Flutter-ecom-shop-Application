@@ -2,6 +2,7 @@ import 'package:elamri_shop_users/providers/cart_provider.dart';
 import 'package:elamri_shop_users/screens/cart/bottom_checkout.dart';
 import 'package:elamri_shop_users/screens/cart/cart_widget.dart';
 import 'package:elamri_shop_users/services/assets_manager.dart';
+import 'package:elamri_shop_users/services/my_app_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:elamri_shop_users/widgets/empty_bag.dart';
 import 'package:provider/provider.dart';
@@ -39,7 +40,16 @@ class CartScreen extends StatelessWidget {
                   label: "Cart (${cartProvider.getCartitems.length})"),
               actions: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                     MyAppFunctions.showErrorOrWarningDialog(
+                      isError: false,
+                      context: context,
+                      subtitle: "Clear cart?",
+                      fct: () {
+                        cartProvider.clearLocalCart();
+                      },
+                    );
+                  },
                   icon: const Icon(
                     Icons.delete_forever_rounded,
                     color: Colors.red,

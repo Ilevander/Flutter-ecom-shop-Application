@@ -1,5 +1,5 @@
-import 'package:elamri_shop_users/consts/app_constants.dart';
 import 'package:elamri_shop_users/models/cart_model.dart';
+import 'package:elamri_shop_users/providers/cart_provider.dart';
 import 'package:elamri_shop_users/providers/products_provider.dart';
 import 'package:elamri_shop_users/screens/cart/quantity_btm_sheet.dart';
 import 'package:elamri_shop_users/widgets/products/heart_btn.dart';
@@ -19,6 +19,8 @@ class CartWidget extends StatelessWidget {
     final cartModel = Provider.of<CartModel>(context);
     final productsProvider = Provider.of<ProductsProvider>(context);
     final getCurrProduct = productsProvider.findByProdId(cartModel.productId);
+    final cartProvider = Provider.of<CartProvider>(context);
+
     return getCurrProduct == null
         ? const SizedBox.shrink()
         : FittedBox(
@@ -54,13 +56,19 @@ class CartWidget extends StatelessWidget {
                               Column(
                                 children: [
                                   IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      cartProvider.removeOneItem(
+                                        productId: getCurrProduct.productId,
+                                      );
+                                    },
                                     icon: const Icon(
                                       Icons.clear,
                                       color: Colors.red,
                                     ),
                                   ),
-                                  const HeartButtonWidget(),
+                                   HeartButtonWidget(
+                                    productId: getCurrProduct.productId,
+                                  ),
                                 ],
                               ),
                             ],
@@ -86,7 +94,7 @@ class CartWidget extends StatelessWidget {
                                     ),
                                     context: context,
                                     builder: (context) {
-                                      return const QuantityBottomSheetWidget();
+                                      return  QuantityBottomSheetWidget(cartModel: cartModel,);
                                     },
                                   );
                                 },

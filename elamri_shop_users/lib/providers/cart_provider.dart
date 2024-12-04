@@ -18,6 +18,18 @@ class CartProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void updateQty({required String productId, required int qty}) {
+    _cartItems.update(
+      productId,
+      (cartItem) => CartModel(
+        cartId: cartItem.cartId,
+        productId: productId,
+        quantity: qty,
+      ),
+    );
+    notifyListeners();
+  }
+
   bool isProdinCart({required String productId}) {
     return _cartItems.containsKey(productId);
   }
@@ -43,4 +55,15 @@ class CartProvider with ChangeNotifier {
     });
     return total;
   }
+
+  void clearLocalCart() {
+    _cartItems.clear();
+    notifyListeners();
+  }
+
+  void removeOneItem({required String productId}) {
+    _cartItems.remove(productId);
+    notifyListeners();
+  }
+  
 }

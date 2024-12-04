@@ -9,7 +9,6 @@ import 'package:elamri_shop_users/widgets/title_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
-
 class LoginScreen extends StatefulWidget {
   static const routeName = '/LoginScreen';
   const LoginScreen({super.key});
@@ -19,7 +18,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  
   bool obscureText = true;
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
@@ -132,7 +130,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           prefixIcon: const Icon(
                             IconlyLight.lock,
                           ),
-                          
                         ),
                         onFieldSubmitted: (value) async {
                           await _loginFct();
@@ -183,13 +180,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const SizedBox(
                         height: 16.0,
-                      ), 
+                      ),
                       SubtitleTextWidget(
                         label: "Or connect using".toUpperCase(),
                       ),
                       const SizedBox(
                         height: 16.0,
-                      ),SizedBox(
+                      ),
+                      SizedBox(
                         height: kBottomNavigationBarHeight + 10,
                         child: Row(
                           children: [
@@ -205,30 +203,30 @@ class _LoginScreenState extends State<LoginScreen> {
                             const SizedBox(
                               width: 8,
                             ),
-                          Expanded(
-                                  child: SizedBox(
-                                    height: kBottomNavigationBarHeight,
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        padding: const EdgeInsets.all(12.0),
-                                        // backgroundColor: Colors.red,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            12.0,
-                                          ),
-                                        ),
+                            Expanded(
+                              child: SizedBox(
+                                height: kBottomNavigationBarHeight,
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    padding: const EdgeInsets.all(12.0),
+                                    // backgroundColor: Colors.red,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                        12.0,
                                       ),
-                                      child: const Text("Guest?"),
-                                      onPressed: () async {
+                                    ),
+                                  ),
+                                  child: const Text("Guest?"),
+                                  onPressed: () async {
                                     Navigator.of(context)
                                         .pushNamed(RootScreen.routeName);
                                   },
-                                    ),
-                                  ),
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
+                          ],
+                        ),
+                      ),
                       const SizedBox(
                         height: 16.0,
                       ),

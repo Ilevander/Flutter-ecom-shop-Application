@@ -1,5 +1,7 @@
 import 'package:elamri_shop_users/providers/cart_provider.dart';
 import 'package:elamri_shop_users/providers/products_provider.dart';
+import 'package:elamri_shop_users/providers/viewed_recently_provider.dart';
+import 'package:elamri_shop_users/providers/wishlist_provider.dart';
 import 'package:elamri_shop_users/root_screen.dart';
 import 'package:elamri_shop_users/screens/auth/forgot_password.dart';
 import 'package:elamri_shop_users/screens/auth/login.dart';
@@ -36,14 +38,21 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) {
           return CartProvider();
         }),
+        ChangeNotifierProvider(create: (_) {
+          return WishlistProvider();
+        }),
+        ChangeNotifierProvider(create: (_) {
+          return ViewedProdProvider();
+        }),
       ],
       child: Consumer<ThemeProvider>(builder: (context, themeProvider, child) {
         return MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: 'Elamri-Shop MA',
           theme: Styles.themeData(
               isDarkTheme: themeProvider.getIsDarkTheme, context: context),
-          home: const LoginScreen(),
-          //home: const RootScreen(),
+          //home: const LoginScreen(),
+          home: const RootScreen(),
           routes: {
             LoginScreen.routeName: (context) => const LoginScreen(),
             ProductDetailsScreen.routName: (context) =>

@@ -10,7 +10,6 @@ class CartBottomSheetWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     final productsProvider = Provider.of<ProductsProvider>(context);
     final cartProvider = Provider.of<CartProvider>(context);
 
@@ -28,15 +27,17 @@ class CartBottomSheetWidget extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-               Flexible(
+              Flexible(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     FittedBox(
                         child: TitlesTextWidget(
-                            label: "Total (${cartProvider.getCartitems.length} products/${cartProvider.getQty()} items)")),
+                            label:
+                                "Total (${cartProvider.getCartitems.length} products/${cartProvider.getQty()} items)")),
                     SubtitleTextWidget(
-                      label: "${cartProvider.getTotal(productsProvider: productsProvider)} \MAD",
+                      label:
+                          "${cartProvider.getTotal(productsProvider: productsProvider).toStringAsFixed(2)}\ MAD",
                       color: Colors.blue,
                     ),
                   ],

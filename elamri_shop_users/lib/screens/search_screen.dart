@@ -1,6 +1,5 @@
 import 'package:elamri_shop_users/models/product_model.dart';
 import 'package:elamri_shop_users/providers/products_provider.dart';
-import 'package:elamri_shop_users/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -70,10 +69,10 @@ class _SearchScreenState extends State<SearchScreen> {
                         prefixIcon: const Icon(Icons.search),
                         suffixIcon: GestureDetector(
                           onTap: () {
-                            setState(() {
+                           // setState(() {
                               FocusScope.of(context).unfocus();
                               searchTextController.clear();
-                            });
+                          //  });
                           },
                           child: const Icon(
                             Icons.clear,

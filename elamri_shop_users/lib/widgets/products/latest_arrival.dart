@@ -1,12 +1,15 @@
 import 'dart:developer';
 
+import 'package:elamri_shop_users/models/product_model.dart';
+import 'package:elamri_shop_users/providers/cart_provider.dart';
+import 'package:elamri_shop_users/providers/viewed_recently_provider.dart';
 import 'package:elamri_shop_users/screens/inner_screen/product_details.dart';
 import 'package:elamri_shop_users/widgets/products/heart_btn.dart';
 import 'package:elamri_shop_users/widgets/subtitle_screen.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../../consts/app_constants.dart';
 
 class LatestArrivalProductsWidget extends StatelessWidget {
   const LatestArrivalProductsWidget({super.key});
@@ -14,15 +17,18 @@ class LatestArrivalProductsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
+    final productsModel = Provider.of<ProductModel>(context);
+    final cartProvider = Provider.of<CartProvider>(context);
+    final viewedProdProvider = Provider.of<ViewedProdProvider>(context);
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
-        onTap: () async{
-          //log("ToDo add the navigate to the product details screen");
-          await Navigator.pushNamed(
-            context,
-            ProductDetailsScreen.routName,
-          );
+        onTap: () async {
+          viewedProdProvider.addViewedProd(productId: productsModel.productId);
+          await Navigator.pushNamed(context, ProductDetailsScreen.routName,
+              arguments: productsModel.productId);
         },
         child: SizedBox(
           width: size.width * 0.45,
@@ -33,14 +39,14 @@ class LatestArrivalProductsWidget extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(12.0),
                   child: FancyShimmerImage(
-                    imageUrl: AppConstants.imageUrl,
+                    imageUrl: productsModel.productImage,
                     height: size.width * 0.24,
                     width: size.width * 0.32,
                   ),
                 ),
               ),
               const SizedBox(
-                width: 5,
+                width: 8,
               ),
               Flexible(
                 child: Column(
@@ -49,26 +55,45 @@ class LatestArrivalProductsWidget extends StatelessWidget {
                       height: 5,
                     ),
                     Text(
-                      "Title" * 15,
+                      productsModel.productTitle,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(
+                      height: 5,
                     ),
                     FittedBox(
                       child: Row(
                         children: [
-                          const HeartButtonWidget(),
+                          HeartButtonWidget(
+                            productId: productsModel.productId,
+                          ),
                           IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.add_shopping_cart,
+                            onPressed: () {
+                              if (cartProvider.isProdinCart(
+                                  productId: productsModel.productId)) {
+                                return;
+                              }
+                              cartProvider.addProductToCart(
+                                  productId: productsModel.productId);
+                            },
+                            icon: Icon(
+                              cartProvider.isProdinCart(
+                                productId: productsModel.productId,
+                              )
+                                  ? Icons.check
+                                  : Icons.add_shopping_cart_outlined,
                             ),
                           ),
                         ],
                       ),
                     ),
-                    const FittedBox(
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    FittedBox(
                       child: SubtitleTextWidget(
-                        label: "1550.00 MAD",
+                        label: "${productsModel.productPrice} \MAD",
                         fontWeight: FontWeight.w600,
                         color: Colors.blue,
                       ),

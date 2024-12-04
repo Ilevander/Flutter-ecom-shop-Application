@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:elamri_shop_users/widgets/title_text.dart';
 import 'package:provider/provider.dart';
 
-import '../../consts/app_constants.dart';
 import '../../widgets/app_name_text.dart';
 import '../../widgets/products/heart_btn.dart';
 
@@ -94,6 +93,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             children: [
                               HeartButtonWidget(
                                 bkgColor: Colors.blue.shade100,
+                                productId: getCurrProduct.productId,
                               ),
                               const SizedBox(
                                 width: 20,
@@ -139,11 +139,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         const SizedBox(
                           height: 20,
                         ),
-                        const Row(
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            TitlesTextWidget(label: "About this item"),
-                            SubtitleTextWidget(label: "In Phone"),
+                            const TitlesTextWidget(label: "About this item"),
+                            SubtitleTextWidget(
+                                label: "In ${getCurrProduct.productCategory}"),
                           ],
                         ),
                         const SizedBox(

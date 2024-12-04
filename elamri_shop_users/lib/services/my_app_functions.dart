@@ -54,6 +54,7 @@ class MyAppFunctions {
                     ),
                     TextButton(
                       onPressed: () {
+                        fct();
                         Navigator.pop(context);
                       },
                       child: const SubtitleTextWidget(
@@ -68,7 +69,6 @@ class MyAppFunctions {
           );
         });
   }
-
 
   static Future<void> imagePickerDialog({
     required BuildContext context,

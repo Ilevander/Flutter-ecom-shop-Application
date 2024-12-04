@@ -69,9 +69,11 @@ class _ProductWidgetState extends State<ProductWidget> {
                             maxLines: 2,
                           ),
                         ),
-                        const Flexible(
+                        Flexible(
                           flex: 2,
-                          child: HeartButtonWidget(),
+                          child: HeartButtonWidget(
+                            productId: getCurrProduct.productId,
+                          ),
                         ),
                       ],
                     ),
@@ -103,11 +105,11 @@ class _ProductWidgetState extends State<ProductWidget> {
                                     productId: getCurrProduct.productId)) {
                                   return;
                                 }
-                                cartProvider.addProductToCart( 
+                                cartProvider.addProductToCart(
                                     productId: getCurrProduct.productId);
                               },
                               splashColor: Colors.red,
-                              child:  Padding(
+                              child: Padding(
                                 padding: EdgeInsets.all(6.0),
                                 child: Icon(
                                   cartProvider.isProdinCart(
