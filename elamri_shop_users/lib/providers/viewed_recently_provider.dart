@@ -2,7 +2,6 @@ import 'package:elamri_shop_users/models/viewed_products.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
-
 class ViewedProdProvider with ChangeNotifier {
   final Map<String, ViewedProdModel> _viewedProdItems = {};
 
@@ -17,6 +16,11 @@ class ViewedProdProvider with ChangeNotifier {
           viewedProdId: const Uuid().v4(), productId: productId),
     );
 
+    notifyListeners();
+  }
+
+  void clearViewedRecently() {
+    _viewedProdItems.clear();
     notifyListeners();
   }
 }

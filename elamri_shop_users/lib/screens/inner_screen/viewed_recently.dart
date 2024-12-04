@@ -1,6 +1,7 @@
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:elamri_shop_users/providers/viewed_recently_provider.dart';
 import 'package:elamri_shop_users/services/assets_manager.dart';
+import 'package:elamri_shop_users/services/my_app_functions.dart';
 import 'package:elamri_shop_users/widgets/empty_bag.dart';
 import 'package:elamri_shop_users/widgets/title_text.dart';
 
@@ -10,7 +11,7 @@ import 'package:provider/provider.dart';
 import '../../widgets/products/product_widget.dart';
 
 class ViewedRecentlyScreen extends StatelessWidget {
-  static const routName = "/ViewedRecentlyScreen";
+  static const routeName = "/ViewedRecentlyScreen";
   const ViewedRecentlyScreen({super.key});
   final bool isEmpty = false;
   @override
@@ -40,7 +41,16 @@ class ViewedRecentlyScreen extends StatelessWidget {
                       "Viewed recently (${viewedProdProvider.getViewedProds.length})"),
               actions: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    MyAppFunctions.showErrorOrWarningDialog(
+                      isError: false,
+                      context: context,
+                      subtitle: "Clear cart?",
+                      fct: () {
+                        viewedProdProvider.clearViewedRecently();
+                      },
+                    );
+                  },
                   icon: const Icon(
                     Icons.delete_forever_rounded,
                     color: Colors.red,

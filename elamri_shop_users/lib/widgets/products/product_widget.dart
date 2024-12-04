@@ -2,6 +2,7 @@ import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:elamri_shop_users/models/product_model.dart';
 import 'package:elamri_shop_users/providers/cart_provider.dart';
 import 'package:elamri_shop_users/providers/products_provider.dart';
+import 'package:elamri_shop_users/providers/viewed_recently_provider.dart';
 import 'package:elamri_shop_users/screens/inner_screen/product_details.dart';
 import 'package:elamri_shop_users/widgets/products/heart_btn.dart';
 import 'package:elamri_shop_users/widgets/subtitle_screen.dart';
@@ -31,6 +32,7 @@ class _ProductWidgetState extends State<ProductWidget> {
     final getCurrProduct = productsProvider.findByProdId(widget.productId);
     final cartProvider = Provider.of<CartProvider>(context);
 
+    final viewedProdProvider = Provider.of<ViewedProdProvider>(context);
     Size size = MediaQuery.of(context).size;
     return getCurrProduct == null
         ? const SizedBox.shrink()
@@ -38,6 +40,8 @@ class _ProductWidgetState extends State<ProductWidget> {
             padding: const EdgeInsets.all(0.0),
             child: GestureDetector(
               onTap: () async {
+                viewedProdProvider.addViewedProd(
+                    productId: getCurrProduct.productId);
                 await Navigator.pushNamed(
                   context,
                   ProductDetailsScreen.routName,

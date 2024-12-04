@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
             ProductDetailsScreen.routName: (context) =>
                 const ProductDetailsScreen(),
             WishlistScreen.routName: (context) => const WishlistScreen(),
-            ViewedRecentlyScreen.routName: (context) =>
+            ViewedRecentlyScreen.routeName: (context) =>
                 const ViewedRecentlyScreen(),
             RegisterScreen.routName: (context) => const RegisterScreen(),
             RootScreen.routeName: (context) => const RootScreen(),

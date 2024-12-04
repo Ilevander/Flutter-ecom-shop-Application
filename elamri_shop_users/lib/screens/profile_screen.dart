@@ -2,7 +2,6 @@ import 'package:elamri_shop_users/screens/auth/login.dart';
 import 'package:elamri_shop_users/screens/inner_screen/orders/orders_screen.dart';
 import 'package:elamri_shop_users/screens/inner_screen/viewed_recently.dart';
 import 'package:elamri_shop_users/screens/inner_screen/wishlist.dart';
-import 'package:elamri_shop_users/services/my_app_functions.dart';
 import 'package:elamri_shop_users/widgets/app_name_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
@@ -124,7 +123,8 @@ class ProfileScreen extends StatelessWidget {
                   text: "Viewed recently",
                   imagePath: AssetsManager.recent,
                   function: () {
-                    Navigator.pushNamed(context, ViewedRecentlyScreen.routName);
+                    Navigator.pushNamed(
+                        context, ViewedRecentlyScreen.routeName);
                   },
                 ),
                 CustomListTile(

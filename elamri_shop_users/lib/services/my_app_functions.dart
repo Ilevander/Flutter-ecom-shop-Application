@@ -2,7 +2,6 @@ import 'package:elamri_shop_users/widgets/subtitle_screen.dart';
 import 'package:elamri_shop_users/widgets/title_text.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/subtitle_text.dart';
 import 'assets_manager.dart';
 
 class MyAppFunctions {
