@@ -1,3 +1,4 @@
+import 'package:elamri_shop_admin/screens/edit_upload_product_form.dart';
 import 'package:elamri_shop_admin/screens/inner_screen/orders/orders_screen.dart';
 import 'package:elamri_shop_admin/screens/search_screen.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,9 @@ class DashboardButtonsModel {
         DashboardButtonsModel(
           text: "Add a new product",
           imagePath: AssetsManager.cloud,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, EditOrUploadProductScreen.routeName);
+          },
         ),
         DashboardButtonsModel(
           text: "inspect all products",
