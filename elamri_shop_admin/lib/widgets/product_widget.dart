@@ -1,3 +1,4 @@
+import 'package:elamri_shop_admin/screens/edit_upload_product_form.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +30,18 @@ class _ProductWidgetState extends State<ProductWidget> {
         : Padding(
             padding: const EdgeInsets.all(0.0),
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return EditOrUploadProductScreen(
+                        productModel: getCurrProduct,
+                      );
+                    },
+                  ),
+                );
+              },
               child: Column(
                 children: [
                   ClipRRect(
