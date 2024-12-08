@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "345012511952",
+    "project_id": "elamri-shop-fletter",
+    "storage_bucket": "elamri-shop-fletter.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:345012511952:android:13160d38d4b245e6cdead5",
+        "android_client_info": {
+          "package_name": "com.example.elamri_shop_users"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzL8zZn6OFr2jRQT1kVLByTZfeeQpLrWE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
