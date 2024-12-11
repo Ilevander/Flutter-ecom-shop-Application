@@ -11,13 +11,29 @@ import 'package:elamri_shop_users/screens/inner_screen/viewed_recently.dart';
 import 'package:elamri_shop_users/screens/inner_screen/wishlist.dart';
 import 'package:elamri_shop_users/screens/auth/register.dart';
 import 'package:elamri_shop_users/screens/search_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:elamri_shop_users/providers/theme_provider.dart';
 
 import 'consts/theme_data.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: FirebaseOptions(
+      apiKey: "your-api-key", 
+      appId: "your-app-id", 
+      messagingSenderId:
+          "your-messaging-sender-id", 
+      projectId: "your-project-id", 
+      storageBucket:
+          "your-storage-bucket", 
+      authDomain: "your-auth-domain",
+      databaseURL: "your-database-url", // Optional, for Realtime Database
+    )
+  );
+
   runApp(const MyApp());
 }
 
