@@ -1,5 +1,5 @@
-
 import 'package:elamri_shop_admin/screens/edit_upload_product_form.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,7 +10,22 @@ import 'screens/dashboard_screen.dart';
 import 'screens/inner_screen/orders/orders_screen.dart';
 import 'screens/search_screen.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: FirebaseOptions(
+      apiKey: "your-api-key", // Replace with your Firebase API key
+      appId: "your-app-id", // Replace with your Firebase App ID
+      messagingSenderId:
+          "your-messaging-sender-id", // Replace with your Firebase Messaging Sender ID
+      projectId: "your-project-id", // Replace with your Firebase Project ID
+      storageBucket:
+          "your-storage-bucket", // Replace with your Firebase Storage Bucket
+      authDomain: "your-auth-domain", // Optional, for web projects
+      databaseURL: "your-database-url", // Optional, for Realtime Database
+    ),
+  );
+
   runApp(const MyApp());
 }
 
