@@ -2,7 +2,9 @@ import 'package:elamri_shop_users/screens/auth/login.dart';
 import 'package:elamri_shop_users/screens/inner_screen/orders/orders_screen.dart';
 import 'package:elamri_shop_users/screens/inner_screen/viewed_recently.dart';
 import 'package:elamri_shop_users/screens/inner_screen/wishlist.dart';
+import 'package:elamri_shop_users/services/my_app_functions.dart';
 import 'package:elamri_shop_users/widgets/app_name_text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
@@ -12,9 +14,15 @@ import 'package:elamri_shop_users/widgets/subtitle_screen.dart';
 import '../providers/theme_provider.dart';
 import '../widgets/title_text.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+  
+  class _ProfileScreenState extends State<ProfileScreen> {
+  User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
@@ -26,160 +34,166 @@ class ProfileScreen extends StatelessWidget {
             AssetsManager.shoppingCart,
           ),
         ),
-        title: const AppNameTextWidget(
-          fontSize: 20,
-        ),
+        title: const AppNameTextWidget(fontSize: 20),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Visibility(
-            visible: false,
-            child: Padding(
-              padding: EdgeInsets.all(18.0),
-              child: TitlesTextWidget(
-                label: "Please login to have unlimited access",
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Visibility(
+              visible: false,
+              child: Padding(
+                padding: EdgeInsets.all(18.0),
+                child: TitlesTextWidget(
+                  label: "Please login to have unlimited access",
+                ),
               ),
             ),
-          ),
-          Visibility(
-            visible: true,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              child: Row(
-                children: [
-                  Container(
-                    width: 60,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Theme.of(context).cardColor,
-                      border: Border.all(
-                          color: Theme.of(context).colorScheme.surface,
-                          width: 3),
-                      image: const DecorationImage(
-                        image: NetworkImage(
-                          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png",
+            Visibility(
+              visible: true,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 60,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Theme.of(context).cardColor,
+                        border: Border.all(
+                            color: Theme.of(context).colorScheme.background,
+                            width: 3),
+                        image: const DecorationImage(
+                          image: NetworkImage(
+                            "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png",
+                          ),
+                          fit: BoxFit.fill,
                         ),
-                        fit: BoxFit.fill,
                       ),
                     ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    const Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TitlesTextWidget(label: "EL AMRI Ilyass"),
+                        SizedBox(
+                          height: 6,
+                        ),
+                        SubtitleTextWidget(label: "elamri.ilyass@gmail.com")
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(14.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Divider(
+                    thickness: 1,
                   ),
                   const SizedBox(
-                    width: 10,
+                    height: 10,
                   ),
-                  const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TitlesTextWidget(label: "EL AMRI Ilyass"),
-                      SizedBox(
-                        height: 6,
-                      ),
-                      SubtitleTextWidget(label: "elamri.ilyass@gmail.com")
-                    ],
-                  )
+                  const TitlesTextWidget(
+                    label: "General",
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  CustomListTile(
+                    text: "All Order",
+                    imagePath: AssetsManager.orderSvg,
+                    function: () {
+                      Navigator.pushNamed(
+                        context,
+                        OrdersScreenFree.routeName,
+                      );
+                    },
+                  ),
+                  CustomListTile(
+                    text: "Wishlist",
+                    imagePath: AssetsManager.wishlistSvg,
+                    function: () {
+                      Navigator.pushNamed(context, WishlistScreen.routName);
+                    },
+                  ),
+                  CustomListTile(
+                    text: "Viewed recently",
+                    imagePath: AssetsManager.recent,
+                    function: () {
+                      Navigator.pushNamed(
+                          context, ViewedRecentlyScreen.routeName);
+                    },
+                  ),
+                  CustomListTile(
+                    text: "Address",
+                    imagePath: AssetsManager.address,
+                    function: () {},
+                  ),
+                  const SizedBox(height: 6),
+                  const Divider(
+                    thickness: 1,
+                  ),
+                  const SizedBox(height: 6),
+                  const TitlesTextWidget(
+                    label: "Settings",
+                  ),
+                  const SizedBox(height: 10),
+                  SwitchListTile(
+                    secondary: Image.asset(
+                      AssetsManager.theme,
+                      height: 34,
+                    ),
+                    title: Text(themeProvider.getIsDarkTheme
+                        ? "Dark Mode"
+                        : "Light Mode"),
+                    value: themeProvider.getIsDarkTheme,
+                    onChanged: (value) {
+                      themeProvider.setDarkTheme(themeValue: value);
+                    },
+                  ),
                 ],
               ),
             ),
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(14.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Divider(
-                  thickness: 1,
+            Center(
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                      30.0,
+                    ),
+                  ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const TitlesTextWidget(
-                  label: "General",
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                CustomListTile(
-                  text: "All Order",
-                  imagePath: AssetsManager.orderSvg,
-                  function: () {
-                    Navigator.pushNamed(
-                      context,
-                      OrdersScreenFree.routeName,
+                icon: Icon(user == null ? Icons.login : Icons.logout),
+                label: Text(user == null ? "Login" : "Logout"),
+                onPressed: () async {
+                  if (user == null) {
+                    Navigator.pushNamed(context, LoginScreen.routeName);
+                  } else {
+                    await MyAppFunctions.showErrorOrWarningDialog(
+                      context: context,
+                      subtitle: "Are you sure you want to signout",
+                      fct: () {},
+                      isError: false,
                     );
-                  },
-                ),
-                CustomListTile(
-                  text: "Wishlist",
-                  imagePath: AssetsManager.wishlistSvg,
-                  function: () {
-                    Navigator.pushNamed(context, WishlistScreen.routName);
-                  },
-                ),
-                CustomListTile(
-                  text: "Viewed recently",
-                  imagePath: AssetsManager.recent,
-                  function: () {
-                    Navigator.pushNamed(
-                        context, ViewedRecentlyScreen.routeName);
-                  },
-                ),
-                CustomListTile(
-                  text: "Address",
-                  imagePath: AssetsManager.address,
-                  function: () {},
-                ),
-                const SizedBox(height: 6),
-                const Divider(
-                  thickness: 1,
-                ),
-                const SizedBox(height: 6),
-                const TitlesTextWidget(
-                  label: "Settings",
-                ),
-                const SizedBox(height: 10),
-                SwitchListTile(
-                  secondary: Image.asset(
-                    AssetsManager.theme,
-                    height: 34,
-                  ),
-                  title: Text(themeProvider.getIsDarkTheme
-                      ? "Dark Mode"
-                      : "Light Mode"),
-                  value: themeProvider.getIsDarkTheme,
-                  onChanged: (value) {
-                    themeProvider.setDarkTheme(themeValue: value);
-                  },
-                ),
-              ],
-            ),
-          ),
-          Center(
-            child: ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                    30.0,
-                  ),
-                ),
+                  }
+                },
               ),
-              icon: const Icon(Icons.login),
-              label: const Text("Login"),
-              onPressed: () async {
-                Navigator.pushNamed(context, LoginScreen.routeName);
-                // await MyAppFunctions.showErrorOrWarningDialog(
-                //     context: context,
-                //     subtitle: "Are you sure you want to signout",
-                //     fct: () {},
-                //     isError: false);
-              },
             ),
-          ),
         ],
+      ),
       ),
     );
   }
