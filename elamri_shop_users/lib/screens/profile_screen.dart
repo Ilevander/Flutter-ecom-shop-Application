@@ -185,7 +185,12 @@ class ProfileScreen extends StatefulWidget {
                     await MyAppFunctions.showErrorOrWarningDialog(
                       context: context,
                       subtitle: "Are you sure you want to signout",
-                      fct: () {},
+                      fct: () async{
+                        await FirebaseAuth.instance.signOut();
+                        if (!mounted) return;
+                        Navigator.pushReplacementNamed(
+                            context, LoginScreen.routeName);
+                      },
                       isError: false,
                     );
                   }

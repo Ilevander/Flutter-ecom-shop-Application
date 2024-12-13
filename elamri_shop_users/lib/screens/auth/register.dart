@@ -1,5 +1,6 @@
 import 'package:elamri_shop_users/consts/validator.dart';
 import 'package:elamri_shop_users/root_screen.dart';
+import 'package:elamri_shop_users/screens/loading_manager.dart';
 import 'package:elamri_shop_users/services/my_app_functions.dart';
 import 'package:elamri_shop_users/widgets/app_name_text.dart';
 import 'package:elamri_shop_users/widgets/auth/image_picker_widget.dart';
@@ -136,7 +137,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        body: Padding(
+        body: LoadingManager(
+          isLoading: _isLoading,
+          child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: SingleChildScrollView(
             child: Column(
@@ -151,6 +154,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 const SizedBox(
                   height: 30,
                 ),
+                const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          TitlesTextWidget(label: "Welcome back!"),
+                          SubtitleTextWidget(label: "Your welcome message"),
+                        ],
+                      )),
                 const SizedBox(
                   height: 30,
                 ),
@@ -314,6 +326,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
           ),
         ),
       ),
-    );
+    ));
   }
 }

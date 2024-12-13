@@ -1,8 +1,43 @@
+import 'package:elamri_shop_users/root_screen.dart';
+import 'package:elamri_shop_users/services/my_app_functions.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ionicons/ionicons.dart';
 
 class GoogleButton extends StatelessWidget {
   const GoogleButton({super.key});
+    Future<void> _googleSignSignIn({required BuildContext context}) async {
+    try {
+      final googleSignIn = GoogleSignIn();
+      final googleAccount = await googleSignIn.signIn();
+      if (googleAccount != null) {
+        final googleAuth = await googleAccount.authentication;
+        if (googleAuth.accessToken != null && googleAuth.idToken != null) {
+          final authResults = await FirebaseAuth.instance
+              .signInWithCredential(GoogleAuthProvider.credential(
+            accessToken: googleAuth.accessToken,
+            idToken: googleAuth.idToken,
+          ));
+        }
+      }
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        Navigator.pushReplacementNamed(context, RootScreen.routeName);
+      });
+    } on FirebaseException catch (error) {
+      await MyAppFunctions.showErrorOrWarningDialog(
+        context: context,
+        subtitle: error.message.toString(),
+        fct: () {},
+      );
+    } catch (error) {
+      await MyAppFunctions.showErrorOrWarningDialog(
+        context: context,
+        subtitle: error.toString(),
+        fct: () {},
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +60,9 @@ class GoogleButton extends StatelessWidget {
         "Sign in with google",
         style: TextStyle(color: Colors.black),
       ),
-      onPressed: () async {},
+      onPressed: () async {
+        await _googleSignSignIn(context: context);
+      },
     );
   }
 }
