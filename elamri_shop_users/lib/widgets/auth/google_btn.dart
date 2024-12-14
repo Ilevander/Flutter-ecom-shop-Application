@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:elamri_shop_users/root_screen.dart';
 import 'package:elamri_shop_users/services/my_app_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,6 +20,22 @@ class GoogleButton extends StatelessWidget {
             accessToken: googleAuth.accessToken,
             idToken: googleAuth.idToken,
           ));
+            if (authResults.additionalUserInfo!.isNewUser) {
+            await FirebaseFirestore.instance
+                .collection("users")
+                .doc(
+                  authResults.user!.uid,
+                )
+                .set({
+              'userId': authResults.user!.uid,
+              'userName': authResults.user!.displayName,
+              'userImage': authResults.user!.photoURL,
+              'userEmail': authResults.user!.email,
+              'createdAt': Timestamp.now(),
+              'userWish': [],
+              'userCart': [],
+            });
+          }
         }
       }
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
