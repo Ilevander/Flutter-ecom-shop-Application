@@ -1,5 +1,6 @@
 import 'package:elamri_shop_users/providers/cart_provider.dart';
 import 'package:elamri_shop_users/providers/products_provider.dart';
+import 'package:elamri_shop_users/providers/user_provider.dart';
 import 'package:elamri_shop_users/providers/viewed_recently_provider.dart';
 import 'package:elamri_shop_users/providers/wishlist_provider.dart';
 import 'package:elamri_shop_users/root_screen.dart';
@@ -86,6 +87,9 @@ class MyApp extends StatelessWidget {
               }),
               ChangeNotifierProvider(create: (_) {
                 return ViewedProdProvider();
+              }),
+              ChangeNotifierProvider(create: (_) {
+                return UserProvider();
               }),
             ],
             child: Consumer<ThemeProvider>(

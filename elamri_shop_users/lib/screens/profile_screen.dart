@@ -1,7 +1,10 @@
+import 'package:elamri_shop_users/models/user_model.dart';
+import 'package:elamri_shop_users/providers/user_provider.dart';
 import 'package:elamri_shop_users/screens/auth/login.dart';
 import 'package:elamri_shop_users/screens/inner_screen/orders/orders_screen.dart';
 import 'package:elamri_shop_users/screens/inner_screen/viewed_recently.dart';
 import 'package:elamri_shop_users/screens/inner_screen/wishlist.dart';
+import 'package:elamri_shop_users/screens/loading_manager.dart';
 import 'package:elamri_shop_users/services/my_app_functions.dart';
 import 'package:elamri_shop_users/widgets/app_name_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -23,6 +26,36 @@ class ProfileScreen extends StatefulWidget {
   
   class _ProfileScreenState extends State<ProfileScreen> {
   User? user = FirebaseAuth.instance.currentUser;
+
+  UserModel? userModel;
+  bool _isLoading = true;
+
+  Future<void> fetchUserInfo() async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    try {
+      setState(() {
+        _isLoading = true;
+      });
+      userModel = await userProvider.fetchUserInfo();
+    } catch (error) {
+      await MyAppFunctions.showErrorOrWarningDialog(
+        context: context,
+        subtitle: error.toString(),
+        fct: () {},
+      );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    fetchUserInfo();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
@@ -36,23 +69,25 @@ class ProfileScreen extends StatefulWidget {
         ),
         title: const AppNameTextWidget(fontSize: 20),
       ),
-      body: SingleChildScrollView(
+      body: LoadingManager(
+        isLoading: _isLoading,
+        child: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Visibility(
-              visible: false,
-              child: Padding(
+             Visibility(
+              visible: user == null ? true : false,
+                child: const Padding(
                 padding: EdgeInsets.all(18.0),
                 child: TitlesTextWidget(
                   label: "Please login to have unlimited access",
                 ),
               ),
             ),
-            Visibility(
-              visible: true,
-              child: Padding(
+            userModel == null
+                  ? const SizedBox.shrink()
+                  : Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 child: Row(
@@ -66,9 +101,9 @@ class ProfileScreen extends StatefulWidget {
                         border: Border.all(
                             color: Theme.of(context).colorScheme.background,
                             width: 3),
-                        image: const DecorationImage(
+                        image:  DecorationImage(
                           image: NetworkImage(
-                            "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png",
+                            userModel!.userImage,
                           ),
                           fit: BoxFit.fill,
                         ),
@@ -77,20 +112,19 @@ class ProfileScreen extends StatefulWidget {
                     const SizedBox(
                       width: 10,
                     ),
-                    const Column(
+                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        TitlesTextWidget(label: "EL AMRI Ilyass"),
-                        SizedBox(
+                        TitlesTextWidget(label: userModel!.userName),
+                        const SizedBox(
                           height: 6,
                         ),
-                        SubtitleTextWidget(label: "elamri.ilyass@gmail.com")
+                        SubtitleTextWidget(label: userModel!.userEmail)
                       ],
                     )
                   ],
                 ),
               ),
-            ),
             const SizedBox(
               height: 15,
             ),
@@ -121,12 +155,15 @@ class ProfileScreen extends StatefulWidget {
                       );
                     },
                   ),
-                  CustomListTile(
+                  Visibility(
+                  visible: userModel == null ? false : true,
+                  child: CustomListTile(
                     text: "Wishlist",
                     imagePath: AssetsManager.wishlistSvg,
                     function: () {
                       Navigator.pushNamed(context, WishlistScreen.routName);
-                    },
+                      },
+                    ),
                   ),
                   CustomListTile(
                     text: "Viewed recently",
@@ -200,7 +237,7 @@ class ProfileScreen extends StatefulWidget {
         ],
       ),
       ),
-    );
+    ));
   }
 }
 
